@@ -1,42 +1,32 @@
-import React, { createContext, useReducer } from 'react';
-import { Task } from '../types/taskTypes';
+import React, { createContext, useState, ReactNode } from 'react';
+import { Task } from '../types/taskTypes'; 
 
+interface TaskContextType {
+  tasks: Task[];
+  addTask: (task: Task) => void;
+  editTask: (task: Task) => void;
+  deleteTask: (id: string) => void;
+}
 
-type TaskAction =
-  | { type: 'ADD_TASK'; payload: Task }
-  | { type: 'EDIT_TASK'; payload: Task }
-  | { type: 'DELETE_TASK'; payload: string };
-
-const taskReducer = (state: Task[], action: TaskAction): Task[] => {
-  switch (action.type) {
-    case 'ADD_TASK':
-      return [...state, action.payload];
-    case 'EDIT_TASK':
-      return state.map((task) => (task.id === action.payload.id ? action.payload : task));
-    case 'DELETE_TASK':
-      return state.filter((task) => task.id !== action.payload);
-    default:
-      return state;
-  }
-};
-
-const initialTasks: Task[] = [];
+interface TaskProviderProps {
+  children: ReactNode;
+}
 
 export const TaskContext = createContext<any>(null);
 
-export const TaskProvider: React.FC = ({ children }) => {
-  const [tasks, dispatch] = useReducer(taskReducer, initialTasks);
+export const TaskProvider: React.FC<TaskProviderProps> = ({ children }) => {
+  const [tasks, setTasks] = useState<Task[]>([]);
 
   const addTask = (task: Task) => {
-    dispatch({ type: 'ADD_TASK', payload: task });
+    setTasks([...tasks, task]);
   };
 
-  const editTask = (task: Task) => {
-    dispatch({ type: 'EDIT_TASK', payload: task });
+  const editTask = (updatedTask: Task) => {
+    setTasks(tasks.map((task) => (task.id === updatedTask.id ? updatedTask : task)));
   };
 
   const deleteTask = (id: string) => {
-    dispatch({ type: 'DELETE_TASK', payload: id });
+    setTasks(tasks.filter((task) => task.id !== id));
   };
 
   return (

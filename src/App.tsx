@@ -1,10 +1,8 @@
-// src/App.tsx
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import TaskDashboard from './components/TaskDashboard';
 import TaskDetails from './components/TaskDetails';
 import TaskForm from './components/TaskForm';
-import Auth from './components/Auth';
 import { TaskProvider } from './context/TaskContext';
 import { Auth0Provider } from '@auth0/auth0-react';
 
@@ -13,13 +11,22 @@ const App: React.FC = () => {
     <Auth0Provider
       domain="YOUR_AUTH0_DOMAIN"
       clientId="YOUR_AUTH0_CLIENT_ID"
-      redirectUri={window.location.origin}
+      authorizationParams={{
+        redirect_uri: window.location.origin,
+      }}
     >
       <TaskProvider>
         <Router>
-          <Switch>
-            <Route exact path="/" component={TaskDashboard} />
-            <Route path="/tasks/new" component={TaskForm} />
-            <Route path="/tasks/edit/:id" component={TaskForm} />
-            <Route path="/tasks/:id" component={TaskDetails} />
-            <Route path
+          <Routes>
+            <Route path="/" element={<TaskDashboard />} />
+            <Route path="/tasks/new" element={<TaskForm />} />
+            <Route path="/tasks/edit/:id" element={<TaskForm />} />
+            <Route path="/tasks/:id" element={<TaskDetails />} />
+          </Routes>
+        </Router>
+      </TaskProvider>
+    </Auth0Provider>
+  );
+};
+
+export default App;

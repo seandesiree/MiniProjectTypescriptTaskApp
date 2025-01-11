@@ -5,6 +5,9 @@ import { useAuth0 } from '@auth0/auth0-react';
 const Auth: React.FC = () => {
   const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
 
+  
+
+  }): void;
   return (
     <div className="container">
       {isAuthenticated ? (
@@ -24,3 +27,6 @@ const Auth: React.FC = () => {
 };
 
 export default Auth;
+
+
+
