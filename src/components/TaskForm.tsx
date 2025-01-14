@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { TaskContext } from '../context/TaskContext';
-import { Task } from '../types/taskTypes';
+import { TaskContext } from '../context/TaskContext.tsx';
+import { Task } from '../types/taskTypes.ts';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const TaskForm: React.FC = () => {
@@ -17,7 +17,7 @@ const TaskForm: React.FC = () => {
 
   useEffect(() => {
     if (id) {
-      const foundTask = tasks.find((task) => task.id === id);
+      const foundTask = tasks.find((task: { id: string; }) => task.id === id);
       if (foundTask) {
         setTask(foundTask);
       }

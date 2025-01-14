@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import TaskDashboard from './components/TaskDashboard';
-import TaskDetails from './components/TaskDetails';
-import TaskForm from './components/TaskForm';
-import { TaskProvider } from './context/TaskContext';
+import TaskDashboard from './components/TaskDashboard.tsx';
+import TaskDetails from './components/TaskDetails.tsx';
+import TaskForm from './components/TaskForm.tsx';
+import { TaskProvider } from './context/TaskContext.tsx';
 import { Auth0Provider } from '@auth0/auth0-react';
 
 const App: React.FC = () => {

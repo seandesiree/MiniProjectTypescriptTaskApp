@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import { TaskContext } from '../context/TaskContext';
-import { Task } from '../types/taskTypes';
+import { TaskContext } from '../context/TaskContext.tsx';
+import { Task } from '../types/taskTypes.ts';
 import { Link } from 'react-router-dom';
 
 const TaskDashboard: React.FC = () => {

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { TaskContext } from '../context/TaskContext';
-import { Task } from '../types/taskTypes';
+import { TaskContext } from '../context/TaskContext.tsx';
+import { Task } from '../types/taskTypes.ts';
 
 const TaskDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
