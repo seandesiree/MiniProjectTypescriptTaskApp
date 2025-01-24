@@ -26,10 +26,14 @@ const TaskForm: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+  
+    const taskToSave = id ? task : { ...task, id: Date.now().toString() };
+    
     if (id) {
-      editTask(task);
+      editTask(taskToSave);
     } else {
-      addTask(task);
+      addTask(taskToSave);
     }
     navigate('/');
   };
@@ -38,6 +42,27 @@ const TaskForm: React.FC = () => {
     <div className="container">
       <h2>{id ? 'Edit Task' : 'Create Task'}</h2>
       <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label>Title</label>
+          <input
+            type="text"
+            className="form-control"
+            value={task.title}
+            onChange={(e) => setTask({ ...task, title: e.target.value })}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Description</label>
+          <textarea
+            className="form-control"
+            value={task.description}
+            onChange={(e) => setTask({ ...task, description: e.target.value })}
+            required
+          />
+        </div>
+
         <div className="form-group">
           <label>Status</label>
           <select
@@ -49,6 +74,19 @@ const TaskForm: React.FC = () => {
             <option value="in-progress">In Progress</option>
             <option value="completed">Completed</option>
           </select>
+        </div>
+
+        <div className="form-group">
+          <button type="submit" className="btn btn-primary">
+            {id ? 'Update Task' : 'Create Task'}
+          </button>
+          <button 
+            type="button" 
+            className="btn btn-secondary ml-2"
+            onClick={() => navigate('/')}
+          >
+            Cancel
+          </button>
         </div>
       </form>
     </div>
